@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Data Page</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        $('#searchInput').on('input', function() {
+          var searchValue = $(this).val();
+
+          $.get('/filter', { search: searchValue }, function(data) {
+            $('#dataList').empty();
+
+            data.forEach(function(row) {
+              var listItem = $('<li>').text(Object.values(row).join(': '));
+              $('#dataList').append(listItem);
+            });
+          });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Data Page</h1>
+    <input type="text" id="searchInput" placeholder="Search">
+    <ul id="dataList"></ul>
+  </body>
+</html>
